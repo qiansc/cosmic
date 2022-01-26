@@ -26,5 +26,5 @@ const hashedString = computed(() => window.nodeCrypto.sha256sum(rawString.value)
     >
   </label>
   <br><br>
-  <code>packages/renderer/src/components/ReactiveHash.vue</code>
+  <code>packages/site/src/components/ReactiveHash.vue</code>
 </template>

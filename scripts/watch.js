@@ -66,7 +66,7 @@ const setupMainPackageWatcher = ({config: {server}}) => {
 
   return getWatcher({
     name: 'reload-app-on-main-package-change',
-    configFile: 'packages/main/vite.config.js',
+    configFile: 'packages/app/vite.config.js',
     writeBundle() {
       if (spawnProcess !== null) {
         spawnProcess.off('exit', process.exit);
@@ -117,7 +117,7 @@ const setupPreloadPackageWatcher = ({ws}) =>
   try {
     const viteDevServer = await createServer({
       ...sharedConfig,
-      configFile: 'packages/renderer/vite.config.js',
+      configFile: 'packages/site/vite.config.js',
     });
 
     await viteDevServer.listen();

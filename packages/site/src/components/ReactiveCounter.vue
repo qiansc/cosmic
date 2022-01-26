@@ -9,5 +9,5 @@ const count = ref(0);
     count is: {{ count }}
   </button>
   <br><br>
-  <code>packages/renderer/src/components/ReactiveCounter.vue</code>
+  <code>packages/site/src/components/ReactiveCounter.vue</code>
 </template>

@@ -97,11 +97,11 @@ The template requires a minimum amount [dependencies](package.json). Only **Vite
 The structure of this template is very similar to the structure of a monorepo.
 
 The entire source code of the program is divided into three modules (packages) that are each bundled independently:
-- [`packages/main`](packages/main)
+- [`packages/app`](packages/app)
   Electron [**main script**](https://www.electronjs.org/docs/tutorial/quick-start#create-the-main-script-file).
 - [`packages/preload`](packages/preload)
   Used in `BrowserWindow.webPreferences.preload`. See [Checklist: Security Recommendations](https://www.electronjs.org/docs/tutorial/security#2-do-not-enable-nodejs-integration-for-remote-content).
-- [`packages/renderer`](packages/renderer)
+- [`packages/site`](packages/site)
   Electron [**web page**](https://www.electronjs.org/docs/tutorial/quick-start#create-a-web-page).
 
 ### Build web resources
@@ -148,7 +148,7 @@ writeFile()
 ```
 
 ### Using external modules in renderer
-According to [Electron's security guidelines](https://www.electronjs.org/docs/tutorial/security#2-do-not-enable-nodejs-integration-for-remote-content), Node.js integration is disabled for remote content. This means that **you cannot call any Node.js api in the `packages/renderer` directly**. This also means you can't import external modules during runtime in the renderer:
+According to [Electron's security guidelines](https://www.electronjs.org/docs/tutorial/security#2-do-not-enable-nodejs-integration-for-remote-content), Node.js integration is disabled for remote content. This means that **you cannot call any Node.js api in the `packages/site` directly**. This also means you can't import external modules during runtime in the renderer:
 ```js
 // renderer.bundle.js
 const {writeFile} = require('fs') // ReferenceError: require is not defined
@@ -179,7 +179,7 @@ interface Window {
 ```
 And now, you can safely use the registered method:
 ```ts
-// packages/renderer/src/App.vue
+// packages/site/src/App.vue
 window.nodeCrypto.sha256sum('data')
 ```
 

@@ -36,7 +36,7 @@ import ElectronVersions from '/@/components/ElectronVersions.vue';</script>
 
   <p>
     Edit
-    <code>packages/renderer/src/App.vue</code> to test hot module replacement.
+    <code>packages/site/src/App.vue</code> to test hot module replacement.
   </p>
 </template>
 
