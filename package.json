@@ -7,23 +7,25 @@
   },
   "main": "packages/app/dist/index.cjs",
   "scripts": {
-    "build": "npm run build:main && npm run build:preload && npm run build:renderer",
+    "build": "npm run build:main && npm run build:preload && npm run build:site",
     "build:main": "cd ./packages/app && vite build",
     "build:preload": "cd ./packages/preload && vite build",
     "build:preload:types": "dts-cb -i \"packages/preload/tsconfig.json\" -o \"packages/preload/exposedInMainWorld.d.ts\"",
-    "build:renderer": "cd ./packages/site && vite build",
+    "build:site": "cd ./packages/site && vite build",
+    "build:core": "cd ./packages/core && vite build",
     "compile": "cross-env MODE=production npm run build && electron-builder build --config .electron-builder.config.js",
-    "test": "npm run test:main && npm run test:preload && npm run test:renderer && npm run test:e2e",
+    "test": "npm run test:main && npm run test:preload && npm run test:site && npm run test:e2e",
     "test:e2e": "npm run build && vitest run",
     "test:main": "vitest run -r packages/app --passWithNoTests",
     "test:preload": "vitest run -r packages/preload --passWithNoTests",
-    "test:renderer": "vitest run -r packages/site --passWithNoTests",
+    "test:site": "vitest run -r packages/site --passWithNoTests",
     "watch": "node scripts/watch.js",
     "lint": "eslint . --ext js,ts,vue",
     "typecheck:main": "tsc --noEmit -p packages/app/tsconfig.json",
     "typecheck:preload": "tsc --noEmit -p packages/preload/tsconfig.json",
-    "typecheck:renderer": "npm run build:preload:types && vue-tsc --noEmit -p packages/site/tsconfig.json",
-    "typecheck": "npm run typecheck:main && npm run typecheck:preload && npm run typecheck:renderer"
+    "typecheck:site": "npm run build:preload:types && vue-tsc --noEmit -p packages/site/tsconfig.json",
+    "typecheck": "npm run typecheck:main && npm run typecheck:preload && npm run typecheck:site",
+    "clean": "rimraf dist"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "5.10.1",
@@ -40,14 +42,18 @@
     "happy-dom": "2.30.1",
     "nano-staged": "0.5.0",
     "playwright": "1.18.0",
+    "rimraf": "^3.0.2",
     "simple-git-hooks": "2.7.0",
     "typescript": "4.5.5",
     "vite": "2.7.13",
+    "vite-dts": "^1.0.4",
     "vitest": "0.2.3",
     "vue-tsc": "0.31.1"
   },
   "dependencies": {
     "electron-updater": "4.6.5",
+    "inversify": "^6.0.1",
+    "reflect-metadata": "^0.1.13",
     "vue": "3.2.29"
   }
 }

@@ -17,6 +17,7 @@ const config = {
   resolve: {
     alias: {
       '/@/': join(PACKAGE_ROOT, 'src') + '/',
+      '@cosmic/core': join(PACKAGE_ROOT, '../core') + '/',
     },
   },
   plugins: [vue()],
@@ -34,6 +35,7 @@ const config = {
     rollupOptions: {
       input: 'index.html',
       external: [
+        '@cosmic/core',
         ...builtinModules.flatMap(p => [p, `node:${p}`]),
       ],
     },

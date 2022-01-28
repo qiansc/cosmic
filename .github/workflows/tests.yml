@@ -45,7 +45,7 @@ jobs:
       - run: npm run test:preload
 
 
-  renderer:
+  site:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -54,7 +54,7 @@ jobs:
           node-version: 16
           cache: 'npm'
       - run: npm ci
-      - run: npm run test:renderer
+      - run: npm run test:site
 
 
   e2e:
