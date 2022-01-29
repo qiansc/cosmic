@@ -34,7 +34,7 @@
     },
     {
       "matchSourceUrlPrefixes": [
-        "https://github.com/vitejs/vite/"
+        "https://github.com/design-to-release/cosmic/"
       ],
       "groupName": "Vite monorepo packages",
       "automerge": false
