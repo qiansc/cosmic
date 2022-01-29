@@ -12,8 +12,8 @@
         "experimentalDecorators": true,
         "resolveJsonModule": true,
         "paths": {
-            "@cosmic/core/browser": ["./packages/core/browser/index.ts"],
-            "@cosmic/core/parts": ["./packages/core/parts/index.ts"],
+            "@cosmic/core/*": ["./packages/core"],
+            "@cosmic-module/*": ["./packages/module/*"],
         }
     },
     "include": [

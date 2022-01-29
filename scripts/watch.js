@@ -4,6 +4,8 @@ const {createServer, build, createLogger} = require('vite');
 const electronPath = require('electron');
 const {spawn} = require('child_process');
 const {generateAsync} = require('dts-for-context-bridge');
+const {readdirSync, statSync} = require('fs-extra');
+const {resolve} = require('path');
 
 
 /** @type 'production' | 'development'' */
@@ -111,7 +113,19 @@ const setupPreloadPackageWatcher = ({ws}) =>
         type: 'full-reload',
       });
     },
-  });
+});
+
+const setupCorePackageWatcher = () =>
+  getWatcher({
+    name: 'reload-page-on-core-package-change',
+    configFile: 'packages/core/vite.config.js',
+});
+
+
+const MODULE_ROOT = resolve(__dirname, '../packages/module');
+const list = readdirSync(MODULE_ROOT);
+const modules = list.map(dir => resolve(MODULE_ROOT, dir)).filter(dir => statSync(dir).isDirectory());
+
 
 (async () => {
   try {
@@ -124,6 +138,15 @@ const setupPreloadPackageWatcher = ({ws}) =>
 
     await setupPreloadPackageWatcher(viteDevServer);
     await setupMainPackageWatcher(viteDevServer);
+    await setupCorePackageWatcher(viteDevServer);
+    
+    for(var module of modules) {
+      await getWatcher({
+        name: `reload-page-on-${module}`,
+        configFile: `${module}/vite.config.js`,
+      });
+    }
+
   } catch (e) {
     console.error(e);
     process.exit(1);

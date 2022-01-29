@@ -18,6 +18,7 @@ const config = {
     alias: {
       '/@/': join(PACKAGE_ROOT, 'src') + '/',
       '@cosmic/core': join(PACKAGE_ROOT, '../core') + '/',
+      '@cosmic-module': join(PACKAGE_ROOT, '../module') + '/',
     },
   },
   plugins: [vue()],
@@ -36,6 +37,7 @@ const config = {
       input: 'index.html',
       external: [
         '@cosmic/core',
+        '@cosmic-module',
         ...builtinModules.flatMap(p => [p, `node:${p}`]),
       ],
     },
